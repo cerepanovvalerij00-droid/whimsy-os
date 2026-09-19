@@ -35,22 +35,21 @@
             position: relative;
         }
 
-        /* Интерактивный фон с сеткой и градиентными пятнами */
         body::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 1000px;
+            top: 0; left: 0; width: 100%; height: 1200px;
             background-image: 
                 radial-gradient(circle at 20% 15%, rgba(157, 78, 221, 0.15) 0%, transparent 40%),
                 radial-gradient(circle at 80% 30%, rgba(67, 97, 238, 0.1) 0%, transparent 40%),
                 linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 100% 1000px, 100% 1000px, 60px 60px, 60px 60px;
+            background-size: 100% 1200px, 100% 1200px, 60px 60px, 60px 60px;
             z-index: -1;
             pointer-events: none;
         }
 
-        /* Header / Navbar */
+        /* Header */
         header {
             position: fixed;
             top: 20px;
@@ -74,11 +73,11 @@
         .logo {
             font-size: 1.15rem;
             font-weight: 800;
-            letter-spacing: -0.01em;
             color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
         }
 
         .logo-dot {
@@ -93,9 +92,15 @@
             color: var(--accent);
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
         nav {
             display: flex;
-            gap: 25px;
+            gap: 20px;
         }
 
         nav a {
@@ -110,9 +115,35 @@
             color: var(--text-main);
         }
 
-        /* Hero Section */
+        .lang-switcher {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.4);
+        }
+
+        /* Hero / Welcome Section */
         .hero {
-            padding: 200px 20px 100px;
+            padding: 180px 20px 80px;
             text-align: center;
             max-width: 900px;
             margin: 0 auto;
@@ -136,7 +167,7 @@
         .hero h1 {
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             letter-spacing: -0.03em;
             line-height: 1.15;
             background: linear-gradient(135deg, #ffffff 20%, #94a3b8 100%);
@@ -150,21 +181,58 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
+        .hero-desc {
             font-size: 1.15rem;
             color: var(--text-muted);
             line-height: 1.7;
-            max-width: 700px;
-            margin: 0 auto 40px;
+            margin-bottom: 30px;
         }
 
-        /* Download Cards Grid */
+        /* Features / About Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            text-align: left;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .feature-card h4 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+        }
+
+        /* Downloads Grid */
         .downloads-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
-            max-width: 1100px;
-            margin: 0 auto 120px;
+            max-width: 1000px;
+            margin: 0 auto 100px;
             padding: 0 20px;
         }
 
@@ -182,24 +250,11 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .download-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
         .download-card:hover {
             transform: translateY(-6px);
             border-color: var(--border-glow);
             background: var(--surface-hover);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px var(--primary-glow);
-        }
-
-        .download-card:hover::before {
-            opacity: 1;
         }
 
         .card-top h3 {
@@ -234,7 +289,6 @@
         .download-btn:hover {
             background: linear-gradient(135deg, var(--accent), var(--primary));
             box-shadow: 0 6px 25px rgba(157, 78, 221, 0.5);
-            transform: scale(1.02);
         }
 
         .download-btn.disabled {
@@ -247,22 +301,10 @@
 
         /* Gallery Section */
         .gallery {
-            max-width: 1200px;
-            margin: 0 auto 120px;
+            max-width: 1100px;
+            margin: 0 auto 100px;
             padding: 0 20px;
             text-align: center;
-        }
-
-        .gallery h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
-
-        .gallery-subtitle {
-            color: var(--text-muted);
-            margin-bottom: 50px;
-            font-size: 1.05rem;
         }
 
         .gallery-grid {
@@ -277,24 +319,17 @@
             border-radius: var(--radius);
             overflow: hidden;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .gallery-item:hover {
             transform: translateY(-5px);
             border-color: var(--border-glow);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(157, 78, 221, 0.2);
         }
 
         .gallery-item img {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.03);
         }
 
         /* Footer */
@@ -305,49 +340,73 @@
             color: var(--text-muted);
             font-size: 0.9rem;
             background: rgba(7, 8, 10, 0.8);
-            backdrop-filter: blur(10px);
         }
 
         @media (max-width: 768px) {
-            header {
-                width: 95%;
-                padding: 0 20px;
-            }
-            .hero {
-                padding-top: 150px;
-            }
+            header { width: 95%; padding: 0 15px; }
+            .hero { padding-top: 140px; }
         }
     </style>
 </head>
-<body>
+<body data-lang="ru">
 
     <header>
-        <div class="logo">
+        <a href="#" class="logo">
             <div class="logo-dot"></div>
             Whimsy<span>OS</span>
+        </a>
+        <div class="nav-right">
+            <nav>
+                <a href="#about" class="nav-about">О системе</a>
+                <a href="#downloads" class="nav-downloads">Скачать</a>
+                <a href="#gallery" class="nav-gallery">Галерея</a>
+            </nav>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+            </div>
         </div>
-        <nav>
-            <a href="#downloads">Скачать</a>
-            <a href="#gallery">Галерея</a>
-        </nav>
     </header>
 
-    <section class="hero">
-        <div class="badge">
+    <section class="hero" id="about">
+        <div class="badge" data-ru="⚡ Expressive3MD Desktop Environment" data-en="⚡ Expressive3MD Desktop Environment">
             ⚡ Expressive3MD Desktop Environment
         </div>
-        <h1>Будущее кастомных систем с <span>WhimsyOS</span></h1>
-        <p>Легковесная операционная система с инициализацией runit, высокой производительностью и уникальным рабочим окружением, созданная для энтузиастов.</p>
+        <h1 data-ru="Добро пожаловать в <span>WhimsyOS</span>" data-en="Welcome to <span>WhimsyOS</span>">
+            Добро пожаловать в <span>WhimsyOS</span>
+        </h1>
+        <p class="hero-desc" 
+           data-ru="WhimsyOS — это независимая легковесная операционная система, созданная с акцентом на скорость работы и минимализм. Проект базируется на быстрой системе инициализации runit и включает в себя эксклюзивное графическое окружение Expressive3MD."
+           data-en="WhimsyOS is an independent lightweight operating system built with a focus on speed and minimalism. Powered by the runit initialization system and featuring the exclusive Expressive3MD graphical environment.">
+            WhimsyOS — это независимая легковесная операционная система, созданная с акцентом на скорость работы и минимализм. Проект базируется на быстрой системе инициализации runit и включает в себя эксклюзивное графическое окружение Expressive3MD.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h4 data-ru="⚡ Максимальная скорость" data-en="⚡ Maximum Speed">⚡ Максимальная скорость</h4>
+                <p data-ru="Быстрый запуск и мгновенный отклик интерфейса за счет отсутствия тяжелых фоновых служб." data-en="Fast boot times and instant UI response with no heavy background bloatware.">Быстрый запуск и мгновенный отклик интерфейса за счет отсутствия тяжелых фоновых служб.</p>
+            </div>
+            <div class="feature-card">
+                <h4 data-ru="🎨 Expressive3MD" data-en="🎨 Expressive3MD">🎨 Expressive3MD</h4>
+                <p data-ru="Кастомное, эстетичное и кастомизируемое рабочее окружение, спроектированное с нуля." data-en="A custom, aesthetic, and fully tailorable desktop environment designed from scratch.">Кастомное, эстетичное и кастомизируемое рабочее окружение, спроектированное с нуля.</p>
+            </div>
+            <div class="feature-card">
+                <h4 data-ru="⚙️ Инициализация runit" data-en="⚙️ runit Init">⚙️ Инициализация runit</h4>
+                <p data-ru="Надежная, простая и сверхбыстрая инициализация системы для полного контроля над процессами." data-en="Reliable, simple, and ultra-fast system initialization for absolute process control.">Надежная, простая и сверхбыстрая инициализация системы для полного контроля над процессами.</p>
+            </div>
+        </div>
     </section>
 
-    <section id="downloads" class="downloads-container">
+    <h2 class="section-title" id="downloads" data-ru="Загрузить WhimsyOS" data-en="Download WhimsyOS">Загрузить WhimsyOS</h2>
+
+    <section class="downloads-container">
         <div class="download-card">
             <div class="card-top">
                 <h3>x86_64 ISO</h3>
-                <p>Полноценный установочный образ системы для ПК с архитектурой x86_64. Готов к запуску.</p>
+                <p data-ru="Полноценный установочный образ системы для ПК с архитектурой x86_64." data-en="Full installation ISO image for x86_64 desktop computers.">Полноценный установочный образ системы для ПК с архитектурой x86_64.</p>
             </div>
             <a href="https://docs.google.com/uc?export=download&id=15ry-ZxVSGOFCDZNtBwH_k7bwsqy4jh8_" target="_blank" class="download-btn">
-                <span>Скачать ISO</span>
+                <span data-ru="Скачать ISO" data-en="Download ISO">Скачать ISO</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             </a>
         </div>
@@ -355,23 +414,22 @@
         <div class="download-card">
             <div class="card-top">
                 <h3>ARM64 ISO</h3>
-                <p>Оптимизированная сборка под ARM64 архитектуру и одноплатные микрокомпьютеры.</p>
+                <p data-ru="Оптимизированная сборка под ARM64 архитектуру и одноплатные устройства." data-en="Optimized build for ARM64 architecture and single-board devices.">Оптимизированная сборка под ARM64 архитектуру и одноплатные устройства.</p>
             </div>
-            <a href="#" class="download-btn disabled">Скоро в релизе</a>
+            <a href="#" class="download-btn disabled" data-ru="Скоро в релизе" data-en="Coming Soon">Скоро в релизе</a>
         </div>
 
         <div class="download-card">
             <div class="card-top">
                 <h3>Minirootfs</h3>
-                <p>Минимальный корневой архив файловой системы для кастомных сборок и контейнеров.</p>
+                <p data-ru="Минимальный корневой архив для кастомных сборок и контейнеров." data-en="Minimal root filesystem archive for custom builds and containers.">Минимальный корневой архив для кастомных сборок и контейнеров.</p>
             </div>
-            <a href="#" class="download-btn disabled">Скоро</a>
+            <a href="#" class="download-btn disabled" data-ru="Скоро" data-en="Soon">Скоро</a>
         </div>
     </section>
 
     <section id="gallery" class="gallery">
-        <h2>Интерфейс системы</h2>
-        <div class="gallery-subtitle">Взгляните на рабочее окружение Expressive3MD изнутри</div>
+        <h2 class="section-title" data-ru="Галерея системы" data-en="System Gallery">Галерея системы</h2>
         <div class="gallery-grid">
             <div class="gallery-item">
                 <img src="final8_view.jpg" alt="WhimsyOS Expressive3MD Desktop">
@@ -383,8 +441,21 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 WhimsyOS Project. Open Source Architecture.</p>
+        <p data-ru="&copy; 2026 WhimsyOS Project. Open Source Architecture." data-en="&copy; 2026 WhimsyOS Project. Open Source Architecture.">&copy; 2026 WhimsyOS Project. Open Source Architecture.</p>
     </footer>
 
+    <script>
+        function setLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+            });
+
+            // Translate elements with data-ru and data-en attributes
+            document.querySelectorAll('[data-ru]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${lang}`);
+            });
+        }
+    </script>
 </body>
 </html>
