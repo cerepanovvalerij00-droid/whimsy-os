@@ -3,72 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhimsyOS — Expressive3MD Desktop Environment</title>
+    <title>WhimsyOS — Expressive3MD Environment</title>
     <style>
         :root {
-            --bg-color: #0f1115;
-            --surface-color: #161920;
-            --surface-glass: rgba(22, 25, 32, 0.75);
-            --primary-color: #9d4edd;
-            --primary-hover: #c77dff;
-            --text-main: #f8f9fa;
+            --bg: #07080a;
+            --surface: #12151c;
+            --surface-hover: #181d28;
+            --primary: #9d4edd;
+            --primary-glow: rgba(157, 78, 221, 0.35);
+            --accent: #c77dff;
+            --text-main: #f1f5f9;
             --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --radius: 16px;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(157, 78, 221, 0.4);
+            --radius: 20px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg);
             color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 0%, rgba(157, 78, 221, 0.12) 0%, transparent 50%);
+            position: relative;
         }
 
-        /* Navbar */
+        /* Интерактивный фон с сеткой и градиентными пятнами */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 1000px;
+            background-image: 
+                radial-gradient(circle at 20% 15%, rgba(157, 78, 221, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 30%, rgba(67, 97, 238, 0.1) 0%, transparent 40%),
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 1000px, 100% 1000px, 60px 60px, 60px 60px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header / Navbar */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background: var(--surface-glass);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            height: 64px;
+            background: rgba(18, 21, 28, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 5%;
+            padding: 0 30px;
             z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
             color: var(--text-main);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--primary);
         }
 
         .logo span {
-            color: var(--primary-hover);
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
         }
 
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            margin-left: 25px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            font-weight: 500;
             transition: color 0.2s ease;
         }
 
@@ -78,18 +112,40 @@
 
         /* Hero Section */
         .hero {
-            padding: 160px 20px 80px;
+            padding: 200px 20px 100px;
             text-align: center;
             max-width: 900px;
             margin: 0 auto;
         }
 
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(157, 78, 221, 0.1);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            border-radius: 50px;
+            font-size: 0.82rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 25px;
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.15);
+        }
+
         .hero h1 {
-            font-size: 3rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #fff 30%, var(--text-muted) 100%);
+            margin-bottom: 25px;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            background: linear-gradient(135deg, #ffffff 20%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -97,118 +153,168 @@
         .hero p {
             font-size: 1.15rem;
             color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 40px;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 40px;
         }
 
-        /* Downloads Grid */
+        /* Download Cards Grid */
         .downloads-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto 80px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto 120px;
             padding: 0 20px;
         }
 
         .download-card {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 30px;
+            padding: 35px;
             text-align: left;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .download-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(157, 78, 221, 0.4);
+            transform: translateY(-6px);
+            border-color: var(--border-glow);
+            background: var(--surface-hover);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px var(--primary-glow);
         }
 
-        .download-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+        .download-card:hover::before {
+            opacity: 1;
         }
 
-        .download-card p {
-            font-size: 0.9rem;
+        .card-top h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .card-top p {
+            font-size: 0.92rem;
             color: var(--text-muted);
-            margin-bottom: 20px;
-            line-height: 1.4;
+            margin-bottom: 30px;
+            line-height: 1.5;
         }
 
         .download-btn {
-            display: inline-block;
-            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary), #7b2cbf);
             color: white;
-            padding: 12px 20px;
-            border-radius: 10px;
+            padding: 14px 20px;
+            border-radius: 14px;
             text-decoration: none;
             font-weight: 600;
-            text-align: center;
-            transition: background 0.2s ease;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
         }
 
         .download-btn:hover {
-            background: var(--primary-hover);
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            box-shadow: 0 6px 25px rgba(157, 78, 221, 0.5);
+            transform: scale(1.02);
+        }
+
+        .download-btn.disabled {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-muted);
+            box-shadow: none;
+            pointer-events: none;
+            border: 1px solid var(--border);
         }
 
         /* Gallery Section */
         .gallery {
-            max-width: 1100px;
-            margin: 0 auto 100px;
+            max-width: 1200px;
+            margin: 0 auto 120px;
             padding: 0 20px;
             text-align: center;
         }
 
         .gallery h2 {
-            font-size: 2rem;
-            margin-bottom: 40px;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .gallery-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            font-size: 1.05rem;
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .gallery-item {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
+            background: var(--surface);
+            border: 1px solid var(--border);
             border-radius: var(--radius);
             overflow: hidden;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .gallery-item:hover {
-            transform: scale(1.02);
+            transform: translateY(-5px);
+            border-color: var(--border-glow);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(157, 78, 221, 0.2);
         }
 
         .gallery-item img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.03);
         }
 
         /* Footer */
         footer {
-            margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            padding: 30px 20px;
+            border-top: 1px solid var(--border);
+            padding: 40px 20px;
             text-align: center;
             color: var(--text-muted);
             font-size: 0.9rem;
+            background: rgba(7, 8, 10, 0.8);
+            backdrop-filter: blur(10px);
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
+            header {
+                width: 95%;
+                padding: 0 20px;
             }
-            nav a {
-                margin-left: 15px;
+            .hero {
+                padding-top: 150px;
             }
         }
     </style>
@@ -216,7 +322,10 @@
 <body>
 
     <header>
-        <div class="logo">Whimsy<span>OS</span></div>
+        <div class="logo">
+            <div class="logo-dot"></div>
+            Whimsy<span>OS</span>
+        </div>
         <nav>
             <a href="#downloads">Скачать</a>
             <a href="#gallery">Галерея</a>
@@ -224,50 +333,57 @@
     </header>
 
     <section class="hero">
-        <h1>WhimsyOS + Expressive3MD</h1>
-        <p>Кастомная легковесная операционная система с инициализацией runit, кастомным рабочим окружением Expressive3MD и высокой производительностью.</p>
+        <div class="badge">
+            ⚡ Expressive3MD Desktop Environment
+        </div>
+        <h1>Будущее кастомных систем с <span>WhimsyOS</span></h1>
+        <p>Легковесная операционная система с инициализацией runit, высокой производительностью и уникальным рабочим окружением, созданная для энтузиастов.</p>
     </section>
 
     <section id="downloads" class="downloads-container">
         <div class="download-card">
-            <div>
+            <div class="card-top">
                 <h3>x86_64 ISO</h3>
-                <p>Полный установочный образ системы для ПК с архитектурой x86_64.</p>
+                <p>Полноценный установочный образ системы для ПК с архитектурой x86_64. Готов к запуску.</p>
             </div>
-            <a href="https://docs.google.com/uc?export=download&id=15ry-ZxVSGOFCDZNtBwH_k7bwsqy4jh8_" target="_blank" class="download-btn">Скачать ISO</a>
+            <a href="https://docs.google.com/uc?export=download&id=15ry-ZxVSGOFCDZNtBwH_k7bwsqy4jh8_" target="_blank" class="download-btn">
+                <span>Скачать ISO</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </a>
         </div>
 
         <div class="download-card">
-            <div>
+            <div class="card-top">
                 <h3>ARM64 ISO</h3>
-                <p>Сборка под ARM64 устройства и одноплатные компьютеры.</p>
+                <p>Оптимизированная сборка под ARM64 архитектуру и одноплатные микрокомпьютеры.</p>
             </div>
-            <a href="#" class="download-btn" style="opacity: 0.5; pointer-events: none;">Скоро</a>
+            <a href="#" class="download-btn disabled">Скоро в релизе</a>
         </div>
 
         <div class="download-card">
-            <div>
+            <div class="card-top">
                 <h3>Minirootfs</h3>
-                <p>Минимальный корневой файлобменник для кастомных сборок и контейнеров.</p>
+                <p>Минимальный корневой архив файловой системы для кастомных сборок и контейнеров.</p>
             </div>
-            <a href="#" class="download-btn">Скачать Rootfs</a>
+            <a href="#" class="download-btn disabled">Скоро</a>
         </div>
     </section>
 
     <section id="gallery" class="gallery">
-        <h2>Галерея системы</h2>
+        <h2>Интерфейс системы</h2>
+        <div class="gallery-subtitle">Взгляните на рабочее окружение Expressive3MD изнутри</div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="final8_view.jpg" alt="WhimsyOS Expressive3MD View">
+                <img src="final8_view.jpg" alt="WhimsyOS Expressive3MD Desktop">
             </div>
             <div class="gallery-item">
-                <img src="whimsy-os-uefi.png" alt="WhimsyOS UEFI Boot">
+                <img src="whimsy-os-uefi.png" alt="WhimsyOS UEFI Bootloader">
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 WhimsyOS Project. Open Source.</p>
+        <p>&copy; 2026 WhimsyOS Project. Open Source Architecture.</p>
     </footer>
 
 </body>
