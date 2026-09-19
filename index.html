@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhimsyOS — Expressive3MD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #9b51e0;
+            --primary-hover: #b06ef3;
+            --bg: #0f1016;
+            --surface: #181922;
+            --surface-card: #222330;
+            --text: #f0f1ff;
+            --text-secondary: #9496b8;
+            --border: #2e3046;
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(15, 16, 22, 0.8);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            padding: 160px 8% 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at 50% 20%, rgba(155, 81, 224, 0.15) 0%, transparent 60%);
+        }
+
+        .badge {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, #b06ef3, #9b51e0, #e056fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin-bottom: 40px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 20px rgba(155, 81, 224, 0.3);
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: var(--surface-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: var(--surface);
+        }
+
+        section {
+            padding: 80px 8%;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .gallery-item {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .download-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s;
+        }
+
+        .download-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .download-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .download-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Whimsy<span>OS</span></div>
+        <nav>
+            <a href="#about">О системе</a>
+            <a href="#gallery">Галерея</a>
+            <a href="#downloads">Загрузки</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="about">
+        <div class="badge">Expressive3MD Environment</div>
+        <h1>Создано для скорости. <span>Спроектировано для стиля.</span></h1>
+        <p>Кастомная операционная система на базе Linux, быстрая инициализация через runit, оконная оболочка Expressive3MD и интерфейс в стиле Material 3 Expressive.</p>
+        <div class="btn-group">
+            <a href="#downloads" class="btn">Скачать ISO</a>
+            <a href="#gallery" class="btn btn-outline">Смотреть скриншоты</a>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>Интерфейс Expressive3MD</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="final8_view.jpg" alt="WhimsyOS Expressive3MD Desktop">
+            </div>
+            <div class="gallery-item">
+                <img src="whimsy-os-uefi.png" alt="WhimsyOS Classic UEFI Desktop">
+            </div>
+        </div>
+    </section>
+
+    <section id="downloads">
+        <h2>Загрузки и образы</h2>
+        <div class="downloads-grid">
+            <div class="download-card">
+                <div>
+                    <h3>x86_64 ISO</h3>
+                    <p>Полноценный гибридный ISO-образ для ПК и ноутбуков (UEFI и Legacy BIOS с поддержкой QEMU и железа).</p>
+                </div>
+                <a href="#" class="btn">Скачать x86_64</a>
+            </div>
+            <div class="download-card">
+                <div>
+                    <h3>ARM64 ISO</h3>
+                    <p>Версия системы, адаптированная под архитектуру ARM64 для совместимых процессоров и планшетов.</p>
+                </div>
+                <a href="#" class="btn btn-outline">Скачать ARM64</a>
+            </div>
+            <div class="download-card">
+                <div>
+                    <h3>Whimsy Minirootfs</h3>
+                    <p>Облегченная корневая файловая система для кастомных сборок, контейнеров и встраиваемых систем.</p>
+                </div>
+                <a href="#" class="btn btn-outline">Скачать Rootfs</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 WhimsyOS Project. Expressive3MD.</p>
+    </footer>
+
+</body>
+</html>
